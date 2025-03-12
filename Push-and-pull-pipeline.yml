@@ -1,0 +1,23 @@
+trigger:
+- main
+pool:
+  vmImage: 'ubuntu-latest'
+variables:
+  # ACR details
+  acrLoginServer: 'tomercontainer.azurecr.io' 
+  imageName: 'tomer-image'  
+  imageTag: '$(Build.BuildId)'
+  containerRegistryServiceConnection: 'TomerARG'  # שם ה-Service Connection שלך
+steps:
+
+# Docker build and push
+- task: Docker@2
+  displayName: 'Build and Push'
+  inputs:
+    containerRegistry: '$(containerRegistryServiceConnection)'  # שימוש במשתנה
+    repository: '$(imageName)'
+    command: 'buildAndPush'
+    Dockerfile: '**/Dockerfile'
+    tags: |
+      $(imageTag)
+      latest

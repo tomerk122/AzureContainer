@@ -1,0 +1,10 @@
+jobs:
+  - job: CheckMainfe
+    displayName: "Run in Container"
+    container:
+      image: "tomer-image:latest"
+      endpoint: "TomerARG"
+    steps:
+      - script: |
+          echo "Hello, world!"
+        displayName: "Run echo command"
